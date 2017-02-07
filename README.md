@@ -1,6 +1,6 @@
 # Ryodo
 
-Ryodoは、 ~~ 投稿後にgithub pagesにコミットしてくれる ~~ Railsブログアプリケーションです。
+Ryodoは、 ~~投稿後にgithub pagesにコミットしてくれる~~ Railsブログアプリケーションです。
 
 ## ライセンス
 
