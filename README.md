@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Ryodo
 
 Ryodoは、 ~~ 投稿後にgithub pagesにコミットしてくれる ~~ Railsブログアプリケーションです。
@@ -33,8 +32,3 @@ $ rails test
 ```
 $ rails server
 ```
-=======
-# ryodo
-
-Ryodo is deploy tool for static page.
->>>>>>> origin/master
