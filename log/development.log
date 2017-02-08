@@ -5,3 +5,24 @@ Processing by StaticPagesController#home as HTML
 Completed 200 OK in 1399ms (Views: 1377.1ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2017-02-08 13:02:58 +0900
+Processing by StaticPagesController#home as HTML
+  Rendering static_pages/home.html.erb within layouts/application
+  Rendered static_pages/home.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 240ms (Views: 229.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-02-08 13:11:20 +0900
+Processing by StaticPagesController#home as HTML
+  Rendering static_pages/home.html.erb within layouts/application
+  Rendered static_pages/home.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 311ms (Views: 289.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/terms" for 127.0.0.1 at 2017-02-08 13:11:22 +0900
+Processing by StaticPagesController#terms as HTML
+  Rendering static_pages/terms.html.erb within layouts/application
+  Rendered static_pages/terms.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 62ms (Views: 50.2ms | ActiveRecord: 0.0ms)
+
+
