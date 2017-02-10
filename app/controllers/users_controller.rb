@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      #not yet written
+      session[:user_id] = @user.id
     else
       render 'new' #temporary
     end
