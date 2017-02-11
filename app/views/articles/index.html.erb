@@ -1,0 +1,8 @@
+私の投稿一覧<br>
+<% @articles.each do |post| %>
+  <%= post.title %><br>
+  <%= post.content %><br>
+  <%= link_to "編集する", edit_article_path(id: post.id) %><br>
+  <br>
+<% end %>
+<%= link_to "ログアウト", logout_path %>
