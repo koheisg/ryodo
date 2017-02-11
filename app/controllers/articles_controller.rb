@@ -1,10 +1,11 @@
 class ArticlesController < ApplicationController
+  before_action :check_login
+
   def index
   end
 
   def new
     @user = User.find_by(id: session[:user_id])
-    redirect_to login_path unless @user
     @article = @user.articles.build
   end
 
@@ -19,5 +20,9 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :content)
+    end
+
+    def check_login
+      redirect_to login_path unless current_user.login?
     end
 end
