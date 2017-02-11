@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :check_login
 
   def index
+    @articles = current_user.articles.all
   end
 
   def new
@@ -15,6 +16,19 @@ class ArticlesController < ApplicationController
     else
       #not yet written
     end
+  end
+
+  def update
+    article = current_user.articles.find_by(params[:id])
+    if article.update_attributes(article_params)
+      redirect_to articles_path
+    else
+      #not yet written
+    end
+  end
+
+  def edit
+    @article = current_user.articles.find_by(params[:id])
   end
 
   private
