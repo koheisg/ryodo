@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
 
   def new
     @user = User.find_by(id: session[:user_id])
+    redirect_to login_path unless @user
     @article = @user.articles.build
   end
 
