@@ -5,15 +5,16 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @user = User.find_by(id: session[:user_id])
-    @article = @user.articles.build
+    @article = current_user.articles.build
   end
 
   def create
-    @user = User.find_by(id: session[:user_id])
-    @article = @user.articles.build(article_params)
-    @article.save
-    redirect_to articles_path
+    article = current_user.articles.build(article_params)
+    if article.save
+      redirect_to articles_path
+    else
+      #not yet written
+    end
   end
 
   private
