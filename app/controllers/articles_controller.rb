@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    article = current_user.articles.find_by(params[:id])
+    article = current_user.articles.find_by!(id: params[:id])
     if article.update_attributes(article_params)
       redirect_to articles_path
     else
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = current_user.articles.find_by(params[:id])
+    @article = current_user.articles.find_by!(id: params[:id])
   end
 
   private
