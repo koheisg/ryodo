@@ -59,6 +59,8 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.7.0)
+    faraday (0.10.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -88,6 +90,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -186,6 +189,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.11)
   byebug
   coffee-rails (~> 4.2)
+  faraday
   hirb
   hirb-unicode
   jbuilder (~> 2.5)
