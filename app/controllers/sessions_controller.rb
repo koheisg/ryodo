@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: user_params[:email])
     if user && user.authenticate(user_params[:password])
       session[:user_id] = user.id
-      @current_user = current_user
+      redirect_to user_path(current_user)
     else
       render 'new'
     end
