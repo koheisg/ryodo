@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_path(current_user)
+      redirect_to articles_path
     else
       render 'new' #temporary
     end
@@ -15,10 +15,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-  end
-
-  def show
-    @current_user = User.find(current_user)
   end
 
   private
