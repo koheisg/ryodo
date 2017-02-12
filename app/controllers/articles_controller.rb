@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   before_action :verify_user
 
   def index
-    @articles = current_user.articles.all
+    @current_user = current_user
+    @articles = @current_user.articles.all
   end
 
   def new
