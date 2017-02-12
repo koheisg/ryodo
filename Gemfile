@@ -23,7 +23,6 @@ group :development, :test do
   gem 'awesome_print'
   gem 'hirb'
   gem 'hirb-unicode'
-  # Dotenv
   gem 'dotenv-rails'
 end
 
