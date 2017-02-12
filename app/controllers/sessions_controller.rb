@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: user_params[:email])
     if user && user.authenticate(user_params[:password])
       session[:user_id] = user.id
+      @user_id = user.id
     else
       render 'new'
     end
