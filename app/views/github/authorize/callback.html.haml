@@ -1,2 +1,4 @@
-%h1 Github::Authorize#callback
-%p Find me in app/views/github/authorize/callback.html.haml
+%h1 Auth#callback
+%p Find me in app/views/auth/callback.html.erb
+= @code
+= link_to 'POST', github_authorize_access_token_path(code: @code)
