@@ -17,7 +17,6 @@ class Github::AuthorizeController < ApplicationController
         code: params[:code]
       })
       access_token_params = CGI.parse(res.body)
-
       # アクセストークンを送り返すロジック
       # url = 'https://api.github.com/user?access_token=' + access_token
       # redirect_to url #コントローラーからリダイレクトさせると認証に失敗する
