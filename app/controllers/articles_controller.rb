@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :check_login
+  before_action :verify_user
 
   def index
     @articles = current_user.articles.all
@@ -35,9 +35,5 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :content)
-    end
-
-    def check_login
-      redirect_to login_path unless current_user.login?
     end
 end
