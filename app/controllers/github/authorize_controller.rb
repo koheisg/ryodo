@@ -1,8 +1,5 @@
-require 'net/http'
-require 'uri'
-
 class Github::AuthorizeController < ApplicationController
-  before_action :check_login
+  before_action :verify_user
 
   def new
     url = 'https://github.com/login/oauth/authorize?client_id=' + ENV['CLIENT_ID']
@@ -19,20 +16,13 @@ class Github::AuthorizeController < ApplicationController
         client_secret: ENV['CLIENT_SECRET'],
         code: params[:code]
       })
-      res.body.slice!(0..12)
-      access_token = res.body #文字列として切り離しているので、このままDBに保存できる
+      access_token_params = CGI.parse(res.body)
 
       # アクセストークンを送り返すロジック
       # url = 'https://api.github.com/user?access_token=' + access_token
       # redirect_to url #コントローラーからリダイレクトさせると認証に失敗する
 
       # 今回はusers#editにリダイレクトさせて、連携完了を知らせる
-      redirect_to edit_user_path(:id => session[:user_id])
+      redirect_to edit_user_path(current_user)
   end
-
-  private
-
-    def check_login
-      redirect_to login_path unless current_user.login?
-    end
 end
