@@ -22,11 +22,11 @@ class Github::AuthorizeController < ApplicationController
       res.body.slice!(0..12)
       access_token = res.body
       url = 'https://api.github.com/user?access_token=' + access_token
-      redirect_to url #取得に失敗する
+      redirect_to url #コントローラーからリダイレクトさせると認証に失敗する
   end
 
   private
-  
+
     def check_login
       redirect_to login_path unless current_user.login?
     end
