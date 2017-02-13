@@ -22,6 +22,6 @@ class Github::AuthorizeController < ApplicationController
       # redirect_to url #コントローラーからリダイレクトさせると認証に失敗する
 
       # 今回はusers#editにリダイレクトさせて、連携完了を知らせる
-      redirect_to edit_user_path(current_user)
+      redirect_to me_edit_path
   end
 end
