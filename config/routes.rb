@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/signup',  to: 'users#new'
-  resources :users, only: %i(create edit)
+  get '/me/edit', to: 'users#edit'
+  resources :users, only: %i(create)
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
