@@ -17,7 +17,7 @@ class Github::AuthorizeController < ApplicationController
         code: params[:code]
       })
       at_params = CGI.parse(res.body)
-      access_token = GithubAccessToken.find_or_initialize_by(user_id: current_user.id)
+      access_token = GithubAccessToken.find_or_initialize_by(user: current_user)
       if access_token.new_record?
         current_user.github_access_token = GithubAccessToken.create(
           access_token: at_params['access_token'][0],
