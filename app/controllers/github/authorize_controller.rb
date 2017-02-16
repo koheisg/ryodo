@@ -17,14 +17,20 @@ class Github::AuthorizeController < ApplicationController
         code: params[:code]
       })
       at_params = CGI.parse(res.body)
-      if current_user.github_access_token = GithubAccessToken.create(
-        access_token: at_params['access_token'][0],
-        scope: at_params['scope'][0],
-        token_type: at_params['token_type'][0]
-      ) then
-        redirect_to me_edit_path
+      access_token = GithubAccessToken.find_or_initialize_by(user_id: current_user.id)
+      if access_token.new_record?
+        current_user.github_access_token = GithubAccessToken.create(
+          access_token: at_params['access_token'][0],
+          scope: at_params['scope'][0],
+          token_type: at_params['token_type'][0]
+        )
       else
-        redirect_to me_edit_path
+        access_token.update_attributes(
+          access_token: at_params['access_token'][0],
+          scope: at_params['scope'][0],
+          token_type: at_params['token_type'][0]
+        )
       end
+      redirect_to me_edit_path
   end
 end
