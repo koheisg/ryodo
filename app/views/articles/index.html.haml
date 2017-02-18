@@ -6,7 +6,10 @@
   = post.title
   %br
   = post.content
-  %br/
+  %br
+  - post.tags.each do |t|
+    = t.tag
+  %br
   = link_to "編集する", edit_article_path(post)
   %br
   %br
