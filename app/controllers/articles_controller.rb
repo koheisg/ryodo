@@ -7,11 +7,13 @@ class ArticlesController < ApplicationController
 
   def new
     @article = current_user.articles.build
+    @tag = @article.tags.build
   end
 
   def create
     article = current_user.articles.build(article_params)
-    if article.save
+    tag = article.tags.build(tag_params)
+    if article.save && tag.save
       redirect_to articles_path
     else
       #not yet written
@@ -35,5 +37,9 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :content)
+    end
+
+    def tag_params
+      params.require(:tag).permit(:tag)
     end
 end
