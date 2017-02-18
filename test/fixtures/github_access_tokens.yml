@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  access_token: MyString
+  scope: MyString
+  token_type: MyString
+  user: one
+
+two:
+  access_token: MyString
+  scope: MyString
+  token_type: MyString
+  user: two
