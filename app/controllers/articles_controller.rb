@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
     article = current_user.articles.build(article_params)
     tag = article.tags.build(tag_params)
     if article.save
-      redirect_to articles_path
+      redirect_to articles_path(current_user)
     else
       #not yet written
     end
