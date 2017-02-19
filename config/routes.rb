@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :articles, except: %i(show delete)
   namespace :github do
     get 'authorize/new'
-    get 'authorize/callback'
-    get 'authorize/access_token'
+    get 'authorize/callback', to: 'authorize#create'
   end
 end
