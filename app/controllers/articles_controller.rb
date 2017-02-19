@@ -30,6 +30,22 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def update_tag
+    article = current_user.articles.find_by!(id: params[:id])
+    flg = 0;
+    if article.tags.empty? then
+      tag = article.tags.build(tag_params)
+      flg = 1;
+    else
+      tag = article.tags.find_by!(article: article)
+    end
+    if flg then
+      tag.update_attributes(tag_params)
+    else
+      tag.save
+    end
+  end
+
   def edit
     @article = current_user.articles.find_by!(id: params[:id])
     if @article.tags.empty?
