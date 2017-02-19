@@ -1,4 +1,4 @@
 class Tag < ApplicationRecord
   belongs_to :article
-  delegate :user, to: :article
+  has_one :user
 end

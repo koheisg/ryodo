@@ -8,11 +8,13 @@ class ArticlesController < ApplicationController
   def new
     @article = current_user.articles.build
     @tag = @article.tags.build
+    @user_id = current_user.id
   end
 
   def create
     article = current_user.articles.build(article_params)
     tag = article.tags.build(tag_params)
+    tag.user_id = current_user.id
     if article.save
       redirect_to articles_path(current_user)
     else
@@ -33,7 +35,7 @@ class ArticlesController < ApplicationController
   def edit
     @article = current_user.articles.find_by!(id: params[:id])
     if @article.tags.empty?
-      @tag = @article.tags.build
+      @tag = @article.tags.build(user_id: current_user)
     else
       @tag = @article.tags.first
     end
@@ -53,6 +55,7 @@ class ArticlesController < ApplicationController
       article = current_user.articles.find_by!(id: params[:id])
       if article.tags.empty?
         tag = article.tags.build(tag_params)
+        tag.user_id = current_user.id
         tag.save
       else
         tag = article.tags.find_by!(article: article)
