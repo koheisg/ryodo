@@ -55,7 +55,6 @@ class ArticlesController < ApplicationController
       article = current_user.articles.find_by!(id: params[:id])
       if article.tags.empty?
         tag = article.tags.build(tag_params)
-        tag.user_id = current_user.id
         tag.save
       else
         tag = article.tags.find_by!(article: article)
