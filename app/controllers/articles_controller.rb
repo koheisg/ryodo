@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit(:tag)
+      params.require(:tag).permit(:name)
     end
 
     def update_tag

@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20170218114026) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string   "tag"
+    t.string   "name"
     t.integer  "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

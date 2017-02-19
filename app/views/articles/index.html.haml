@@ -8,7 +8,7 @@
   = post.content
   %br
   - post.tags.each do |t|
-    = t.tag
+    = t.name
   %br
   = link_to "編集する", edit_article_path(post)
   %br
