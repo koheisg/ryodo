@@ -1,6 +1,4 @@
 class MarkdownExporter
-  attr_accessor :fm
-
   def self.run
     new.execute
   end
@@ -10,8 +8,7 @@ class MarkdownExporter
      user.articles.each do |article|
        FileUtils.mkdir_p "#{Rails.root}/tmp/user_#{user.id}/"
        f = File.open("#{Rails.root}/tmp/user_#{user.id}/#{article.title}.md", 'w')
-       set_fm
-       f.print @fm
+       f.print front_matter "#{article.title}"
        f.print article.content
        f.close
      end
@@ -20,11 +17,11 @@ class MarkdownExporter
 
  private
 
-  def set_fm
-    @fm = <<"EOS"
+  def front_matter(title)
+    <<"EOS"
 ---
 layout: post
-title: Blogging Like a Hacker
+title: #{title}
 ---
 EOS
   end
