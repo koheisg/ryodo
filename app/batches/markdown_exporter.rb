@@ -4,10 +4,13 @@ class MarkdownExporter
   end
 
  def execute
-  Article.all.each do |article|
-    f = File.open("#{Rails.root}/tmp/#{article.title}.md", 'w')
-    f.print article.content
-    f.close
-  end
+   User.all.each do |user|
+     user.articles.each do |article|
+       FileUtils.mkdir_p "#{Rails.root}/tmp/user_#{user.id}/"
+       f = File.open("#{Rails.root}/tmp/user_#{user.id}/#{article.title}.md", 'w')
+       f.print article.content
+       f.close
+     end
+   end
  end
 end
