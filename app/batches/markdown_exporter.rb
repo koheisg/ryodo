@@ -8,7 +8,7 @@ class MarkdownExporter
      user.articles.each do |article|
        FileUtils.mkdir_p "#{Rails.root}/tmp/user_#{user.id}/"
        f = File.open("#{Rails.root}/tmp/user_#{user.id}/#{article.title}.md", 'w')
-       f.print front_matter "#{article.title}"
+       f.print front_matter(article.title)
        f.print article.content
        f.close
      end
