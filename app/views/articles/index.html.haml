@@ -1,4 +1,6 @@
-私の投稿一覧
+私の投稿一覧 /
+= current_user.email
+%br
 %br
 - @articles.each do |post|
   = post.title
@@ -8,6 +10,10 @@
   = link_to "編集する", edit_article_path(post)
   %br
   %br
+= link_to "記事一覧", articles_path
+%br
 = link_to "記事投稿", new_article_path
+%br
+= link_to "ユーザー情報", me_edit_path
 %br
 = link_to "ログアウト", logout_path
