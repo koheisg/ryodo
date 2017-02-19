@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'tags/index'
-
   get '/signup',  to: 'users#new'
   get '/me/edit', to: 'users#edit'
   resources :users, only: %i(create)
