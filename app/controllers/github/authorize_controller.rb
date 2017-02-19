@@ -7,17 +7,8 @@ class Github::AuthorizeController < ApplicationController
   end
 
   def create
-    res = Net::HTTP.post_form(URI.parse('https://github.com/login/oauth/access_token'), {
-      client_id: ENV['CLIENT_ID'],
-      client_secret: ENV['CLIENT_SECRET'],
-      code: params[:code]
-    })
-    at_params = CGI.parse(res.body)
     access_token = GithubAccessToken.find_or_initialize_by(user: current_user)
-    access_token.assign_attributes(
-      access_token: at_params['access_token'][0],
-      scope: at_params['scope'][0],
-      token_type: at_params['token_type'][0])
+    access_token.assign_attributes(request_access_token(params[:code]))
     if access_token.save
       flash[:notice] = "連携に成功しました"
       redirect_to me_edit_path
@@ -26,4 +17,18 @@ class Github::AuthorizeController < ApplicationController
       redirect_to me_edit_path
     end
   end
+
+  private
+
+    def request_access_token(code)
+      res = Net::HTTP.post_form(URI.parse('https://github.com/login/oauth/access_token'), {
+        client_id: ENV['CLIENT_ID'],
+        client_secret: ENV['CLIENT_SECRET'],
+        code: code
+      })
+      at_params = CGI.parse(res.body)
+      { access_token: at_params['access_token'][0],
+        scope: at_params['scope'][0],
+        token_type: at_params['token_type'][0] }
+    end
 end
