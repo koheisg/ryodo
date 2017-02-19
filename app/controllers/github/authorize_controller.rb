@@ -2,7 +2,7 @@ class Github::AuthorizeController < ApplicationController
   before_action :verify_user
 
   def new
-    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['CLIENT_ID']}"
+    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}"
     redirect_to url
   end
 
@@ -22,8 +22,8 @@ class Github::AuthorizeController < ApplicationController
 
     def request_access_token(code)
       res = Net::HTTP.post_form(URI.parse('https://github.com/login/oauth/access_token'), {
-        client_id: ENV['CLIENT_ID'],
-        client_secret: ENV['CLIENT_SECRET'],
+        client_id: ENV['GITHUB_CLIENT_ID'],
+        client_secret: ENV['GITHUB_CLIENT_SECRET'],
         code: code
       })
       at_params = CGI.parse(res.body)
