@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
   resources :articles, except: %i(show delete)
+  resources :tags, only: %i(new create index)
   namespace :github do
     get 'authorize/new'
     get 'authorize/callback', to: 'authorize#create'
