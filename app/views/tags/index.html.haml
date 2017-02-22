@@ -1,2 +1,6 @@
-%h1 Tags#index
-%p Find me in app/views/tags/index.html.haml
+- @tags.each do |tag|
+  = tag.name
+%br
+= link_to 'タグを作る', new_tag_path
+%br
+= link_to 'トップ画面へ戻る', articles_path

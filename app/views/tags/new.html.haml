@@ -1,2 +1,3 @@
-%h1 Tags#new
-%p Find me in app/views/tags/new.html.haml
+= form_for(@tag) do |f|
+  = f.text_area :name
+  = f.submit
