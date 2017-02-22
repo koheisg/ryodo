@@ -19,9 +19,16 @@ class TagsController < ApplicationController
   end
 
   def edit
+    @tag = current_user.tags.find_by!(id: params[:id])
   end
 
   def update
+    tag = current_user.tags.find_by!(id: params[:id])
+    if tag.update_attributes(tag_params)
+      redirect_to tags_path
+    else
+      # not yet written
+    end
   end
 
   def delete
