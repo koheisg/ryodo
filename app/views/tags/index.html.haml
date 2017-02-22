@@ -1,0 +1,7 @@
+- @tags.each do |tag|
+  = link_to tag.name, edit_tag_path(id: tag.id)
+  = link_to '[X]', tag_path(id: tag.id), method: :delete
+%br
+= link_to 'タグを作る', new_tag_path
+%br
+= link_to 'トップ画面へ戻る', articles_path
