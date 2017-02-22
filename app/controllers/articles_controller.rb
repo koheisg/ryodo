@@ -18,6 +18,10 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def edit
+    @article = current_user.articles.find_by!(id: params[:id])
+  end
+
   def update
     article = current_user.articles.find_by!(id: params[:id])
     if article.update_attributes(article_params)
@@ -25,10 +29,6 @@ class ArticlesController < ApplicationController
     else
       #not yet written
     end
-  end
-
-  def edit
-    @article = current_user.articles.find_by!(id: params[:id])
   end
 
   private
