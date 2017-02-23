@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
 
   def create
     article = current_user.articles.build(article_params)
-    article.article_tags.build(tag_id: params[:article_tag][:tag_id])
+    article.article_tags.build(article_tag_params)
     if article.save
       redirect_to articles_path
     else
@@ -30,13 +30,13 @@ class ArticlesController < ApplicationController
         if params[:article_tag][:tag_id].empty?
           # ない場合の記述はまだ書かない
         else
-          article.article_tags.first.update_attributes(tag_id: params[:article_tag][:tag_id])
+          article.article_tags.first.update_attributes(article_tag_params)
         end
       else # ない場合は、値を見て新規保存
         if params[:article_tag][:tag_id].empty?
           # ない場合の記述はまだ書かない
         else
-          article.article_tags.create!(tag_id: params[:article_tag][:tag_id])
+          article.article_tags.create!(article_tag_params)
         end
       end
 
@@ -50,5 +50,9 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :content)
+    end
+
+    def article_tag_params
+      params.require(:article_tag).permit(:tag_id)
     end
 end
