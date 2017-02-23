@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = current_user.articles.find_by!(id: params[:id])
+    @article.article_tags.build
   end
 
   def update
