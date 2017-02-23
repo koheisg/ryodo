@@ -28,13 +28,13 @@ class ArticlesController < ApplicationController
     article = current_user.articles.find_by!(id: params[:id])
     if article.update_attributes(article_params)
       if article.article_tags.first # すでにATがある場合は、値を見て更新
-        if params[:article_tag][:tag_id].empty?
+        if article_tag_params.empty?
           # ない場合の記述はまだ書かない
         else
           article.article_tags.first.update_attributes(article_tag_params)
         end
       else # ない場合は、値を見て新規保存
-        if params[:article_tag][:tag_id].empty?
+        if article_tag_params.empty?
           # ない場合の記述はまだ書かない
         else
           article.article_tags.create!(article_tag_params)
