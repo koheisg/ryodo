@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
-  before_action :verify_user
+  before_action :verify_user, except: :show
 
   def index
     @articles = current_user.articles.all
+  end
+
+  def show
+    @article = Article.find_by!(id: params[:id])
   end
 
   def new
