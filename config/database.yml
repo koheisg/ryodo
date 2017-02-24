@@ -23,5 +23,4 @@ test:
 production:
   adapter: postgresql
   encoding: utf8
-  database: db/production.sqlite3
   url: <%= ENV['DATABASE_URL'] %>
