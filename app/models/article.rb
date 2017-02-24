@@ -9,6 +9,6 @@ class Article < ApplicationRecord
   private
 
     def permalink
-      "#{id}-#{title}"
+      "#{title}"
     end
 end
