@@ -54,6 +54,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_tag_params
-      params.require(:article_tag).permit(:tag_id)
+      params.require(:article).permit(:article_tag => [:tag_id])
     end
 end
