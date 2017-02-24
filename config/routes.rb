@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
-  resources :articles, except: %i(show delete)
-  get ':id/:permalink', to: 'articles#show', as: :post
+  resources :articles, except: %i(delete)
   resources :tags
   namespace :github do
     get 'authorize/new'
