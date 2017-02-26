@@ -27,20 +27,6 @@ class ArticlesController < ApplicationController
   def update
     article = current_user.articles.find_by!(id: params[:id])
     if article.update_attributes(article_params)
-      if article.article_tags.first # すでにATがある場合は、値を見て更新
-        if article_tag_params.empty?
-          # ない場合の記述はまだ書かない
-        else
-          article.article_tags.first.update_attributes(article_tag_params)
-        end
-      else # ない場合は、値を見て新規保存
-        if article_tag_params.empty?
-          # ない場合の記述はまだ書かない
-        else
-          article.article_tags.create!(article_tag_params)
-        end
-      end
-
       redirect_to articles_path
     else
       #not yet written
@@ -50,6 +36,6 @@ class ArticlesController < ApplicationController
   private
 
     def article_params
-      params.require(:article).permit(:title, :content, :article_tags_attributes => [:tag_id])
+      params.require(:article).permit(:title, :content, :article_tags_attributes => [:tag_id, :id])
     end
 end
