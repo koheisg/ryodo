@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   before_action :verify_user
 
   def index
-    @tags = Tag.all
+    @tags = current_user.tags.all
   end
 
   def new

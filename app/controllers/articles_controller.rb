@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = current_user.articles.build
+    @article.article_tags.build
   end
 
   def create
@@ -22,6 +23,11 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def edit
+    @article = current_user.articles.find_by!(id: params[:id])
+    @article.article_tags.build
+  end
+
   def update
     article = current_user.articles.find_by!(id: params[:id])
     if article.update_attributes(article_params)
@@ -31,13 +37,9 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-    @article = current_user.articles.find_by!(id: params[:id])
-  end
-
   private
 
     def article_params
-      params.require(:article).permit(:title, :content)
+      params.require(:article).permit(:title, :content, :article_tags_attributes => [:tag_id, :id])
     end
 end

@@ -1,4 +1,8 @@
 = form_for(@article) do |f|
   = f.text_area :title
   = f.text_area :content
+  = f.fields_for :article_tags do |t|
+    = t.select :tag_id, current_user.tags.all.collect { |t| [t.name, t.id] }, include_blank: true
+    - if t.object.id
+      = link_to '[X]', article_tag_path(t.object.id), method: :delete
   = f.submit
