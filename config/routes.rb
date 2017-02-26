@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   resources :articles, except: %i(show delete)
   resources :tags
+  get '/articles/tags/:id', to: 'articles/tags#index', as: 'articles_tags'
   namespace :github do
     get 'authorize/new'
     get 'authorize/callback', to: 'authorize#create'
