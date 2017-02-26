@@ -7,11 +7,11 @@ class ArticlesController < ApplicationController
 
   def new
     @article = current_user.articles.build
+    @article.article_tags.build
   end
 
   def create
     article = current_user.articles.build(article_params)
-    article.article_tags.build(article_tag_params)
     if article.save
       redirect_to articles_path
     else
@@ -50,10 +50,6 @@ class ArticlesController < ApplicationController
   private
 
     def article_params
-      params.require(:article).permit(:title, :content)
-    end
-
-    def article_tag_params
-      params.require(:article).permit(:article_tag => [:tag_id])
+      params.require(:article).permit(:title, :content, :article_tags_attributes => [:tag_id])
     end
 end
