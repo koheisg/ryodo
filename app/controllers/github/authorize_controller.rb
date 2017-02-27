@@ -2,7 +2,7 @@ class Github::AuthorizeController < ApplicationController
   before_action :verify_user
 
   def new
-    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}"
+    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&scope=user%20repo"
     redirect_to url
   end
 

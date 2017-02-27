@@ -8,13 +8,22 @@ class Github::RepositoriesController < ApplicationController
   def create
     repository = current_user.github_repository.build(repository_params)
     repository.save
-    url = "https://api.github.com/user/repos"
-    http = Net::HTTP.new
-    res = http.post(URI.parse(url), {
-      name: repository.name
-    },
-    "Authorization" => "token #{current_user.github_access_token.access_token}")
-    binding.pry
+    uri = URI.parse('https://api.github.com/user/repos')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    req = Net::HTTP::Post.new(uri.path)
+    req["Content-Type"] = "application/json"
+    req["Authorization"] = "token #{current_user.github_access_token.access_token}"
+    req.body = {
+      "name" => repository.name
+    }.to_json
+    if res = http.request(req)
+      flash[:notice] = "レポジトリを作成しました"
+      redirect_to me_edit_path
+    else
+      flash[:notice] = "Github連携をもう一度試してみてから、レポジトリの作成を行ってください"
+      redirect_to me_edit_path
+    end
   end
 
   private
