@@ -4,7 +4,7 @@ class Github::RepositoriesController < ApplicationController
   before_action :verify_user
 
   def new
-    @repository = current_user.build_github_repository;
+    @repository = current_user.build_github_repository
   end
 
   def create
