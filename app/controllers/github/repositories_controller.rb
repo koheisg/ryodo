@@ -1,6 +1,8 @@
 require 'net/http'
 
 class Github::RepositoriesController < ApplicationController
+  before_action :verify_user
+
   def new
     @repository = current_user.build_github_repository;
   end
