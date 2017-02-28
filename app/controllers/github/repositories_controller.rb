@@ -8,16 +8,7 @@ class Github::RepositoriesController < ApplicationController
   def create
     repository = current_user.github_repository.build(repository_params)
     repository.save
-    uri = URI.parse('https://api.github.com/user/repos')
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Post.new(uri.path)
-    req["Content-Type"] = "application/json"
-    req["Authorization"] = "token #{current_user.github_access_token.access_token}"
-    req.body = {
-      "name" => repository.name
-    }.to_json
-    if res = http.request(req)
+    if create_repo_with_name(repository.name)
       flash[:notice] = "レポジトリを作成しました"
       redirect_to me_edit_path
     else
@@ -30,5 +21,18 @@ class Github::RepositoriesController < ApplicationController
 
     def repository_params
       params.require(:github_repository).permit(:name)
+    end
+
+    def create_repo_with_name(name)
+      uri = URI.parse('https://api.github.com/user/repos')
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      req = Net::HTTP::Post.new(uri.path)
+      req["Content-Type"] = "application/json"
+      req["Authorization"] = "token #{current_user.github_access_token.access_token}"
+      req.body = {
+        "name" => name
+      }.to_json
+      res = http.request(req)
     end
 end
