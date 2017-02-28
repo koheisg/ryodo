@@ -38,5 +38,6 @@ class Github::RepositoriesController < ApplicationController
         "name" => name
       }.to_json
       res = http.request(req)
+      res.code == '201' ? true : false
     end
 end
