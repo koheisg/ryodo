@@ -19,7 +19,6 @@ class Github::RepositoriesController < ApplicationController
         redirect_to me_edit_path
       end
     end
-    binding.pry
   end
 
   private
