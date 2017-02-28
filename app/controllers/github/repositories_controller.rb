@@ -2,12 +2,12 @@ require 'net/http'
 
 class Github::RepositoriesController < ApplicationController
   def new
-    @repository = current_user.github_repository.build
+    @repository = current_user.build_github_repository;
   end
 
   def create
     ActiveRecord::Base.transaction do
-      repository = current_user.github_repository.build(repository_params)
+      repository = current_user.build_github_repository(repository_params)
       repository.save
       if create_repo_with_name(repository.name)
         flash[:notice] = "レポジトリを作成しました"
@@ -17,6 +17,7 @@ class Github::RepositoriesController < ApplicationController
         redirect_to me_edit_path
       end
     end
+    binding.pry
   end
 
   private
