@@ -9,14 +9,20 @@ class Github::RepositoriesController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      repository = current_user.build_github_repository(repository_params)
-      repository.save
-      if create_repo_with_name(repository.name)
-        flash[:notice] = "レポジトリを作成しました"
-        redirect_to me_edit_path
+      @repository = current_user.build_github_repository(repository_params)
+      if @repository.save
+        if create_repo_with_name(@repository.name)
+          flash[:notice] = "レポジトリを作成しました"
+          redirect_to me_edit_path
+        else
+          flash[:notice] = "Github連携をもう一度試してみてから、レポジトリの作成を行ってください"
+          redirect_to me_edit_path
+        end
       else
-        flash[:notice] = "Github連携をもう一度試してみてから、レポジトリの作成を行ってください"
-        redirect_to me_edit_path
+        ActiveRecord::Rollback
+        respond_to do |format|
+          format.html { render :new }
+        end
       end
     end
   end
