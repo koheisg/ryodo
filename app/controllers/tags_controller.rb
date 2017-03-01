@@ -14,7 +14,10 @@ class TagsController < ApplicationController
     if tag.save
       redirect_to tags_path
     else
-      # not yet written
+      @tag = tag
+      respond_to do |format|
+        format.html { render :new }
+      end
     end
   end
 
@@ -27,7 +30,10 @@ class TagsController < ApplicationController
     if tag.update_attributes(tag_params)
       redirect_to tags_path
     else
-      # not yet written
+      @tag = tag
+      respond_to do |format|
+        format.html { render :new }
+      end
     end
   end
 
