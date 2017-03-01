@@ -19,7 +19,10 @@ class ArticlesController < ApplicationController
     if article.save
       redirect_to articles_path
     else
-      #not yet written
+      @article = article
+      respond_to do |format|
+        format.html { render :new }
+      end
     end
   end
 
@@ -33,7 +36,10 @@ class ArticlesController < ApplicationController
     if article.update_attributes(article_params)
       redirect_to articles_path
     else
-      #not yet written
+      @article = article
+      respond_to do |format|
+        format.html { render :new }
+      end
     end
   end
 

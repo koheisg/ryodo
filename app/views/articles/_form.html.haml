@@ -1,3 +1,8 @@
+- if @article.errors.any?
+  = "#{pluralize(@article.errors.count, "error")}"
+  - @article.errors.full_messages.each do |msg|
+    = msg
+    %br
 = form_for(@article) do |f|
   = f.text_area :title
   = f.text_area :content
