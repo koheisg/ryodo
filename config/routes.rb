@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   namespace :github do
     get 'authorize/new'
     get 'authorize/callback', to: 'authorize#create'
+    resources :repositories, only: %i(new create)
   end
 end

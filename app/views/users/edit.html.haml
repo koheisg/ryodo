@@ -6,4 +6,7 @@
 %br
 = link_to 'Github連携を行う', github_authorize_new_path
 %br
+- if current_user.github_access_token
+  = link_to '新規レポジトリを作る', new_github_repository_path
+  %br
 = link_to "トップページへ戻る", articles_path
