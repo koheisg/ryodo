@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :verify_user, except: :show
+  before_action :set_article, only: %i(edit update)
 
   def index
     @articles = current_user.articles.all
@@ -15,11 +16,10 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    article = current_user.articles.build(article_params)
-    if article.save
+    @article = current_user.articles.build(article_params)
+    if @article.save
       redirect_to articles_path
     else
-      @article = article
       respond_to do |format|
         format.html { render :new }
       end
@@ -27,16 +27,13 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = current_user.articles.find_by!(id: params[:id])
     @article.article_tags.build
   end
 
   def update
-    article = current_user.articles.find_by!(id: params[:id])
-    if article.update_attributes(article_params)
+    if @article.update_attributes(article_params)
       redirect_to articles_path
     else
-      @article = article
       respond_to do |format|
         format.html { render :new }
       end
@@ -47,5 +44,9 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(:title, :content, :article_tags_attributes => [:tag_id, :id])
+    end
+
+    def set_article
+      @article = current_user.articles.find_by!(id: params[:id])
     end
 end
