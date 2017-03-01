@@ -19,7 +19,6 @@ class Github::RepositoriesController < ApplicationController
           redirect_to me_edit_path
         end
       else
-        ActiveRecord::Rollback
         respond_to do |format|
           format.html { render :new }
         end
