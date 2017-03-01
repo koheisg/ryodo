@@ -9,7 +9,10 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to articles_path
     else
-      render 'new' #temporary
+      @user = user
+      respond_to do |format|
+        format.html { render :new }
+      end
     end
   end
 
