@@ -1,3 +1,8 @@
+- if @repository.errors.any?
+  = "#{pluralize(@repository.errors.count, 'error')}"
+  - @repository.errors.full_messages.each do |msg|
+    = msg
+    %br
 = form_for(@repository) do |f|
   = f.text_area :name
   = f.submit
