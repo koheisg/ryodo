@@ -1,3 +1,5 @@
+require 'json'
+
 class UsersController < ApplicationController
   include Authorization
 
