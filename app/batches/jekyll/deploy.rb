@@ -13,7 +13,6 @@ class Jekyll::Deploy < Rails::Generators::Base
         run "cd #{u_dir}"
         git remote: "add #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
         git remote: "set-url #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
-        git add: "-f #{u_dir}*"
         run "cd tmp/#{user.id} && git add ."
         git commit: " -m '#{commit_name}'"
         git push: "-f #{remote_name} master"
