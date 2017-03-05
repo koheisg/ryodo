@@ -1,5 +1,3 @@
-require 'json'
-
 class SessionsController < ApplicationController
   include Authorization
 
