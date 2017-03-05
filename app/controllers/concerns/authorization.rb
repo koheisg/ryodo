@@ -24,6 +24,7 @@ module Authorization
     res = JSON.parse(res.body)
     res[0]['email']
   end
+<<<<<<< 1d94637514427266967d742c0872922fb0aa8e80
 
   def get_username_from_github(access_token)
     uri = URI.parse('https://api.github.com/user')
@@ -36,4 +37,6 @@ module Authorization
     res = JSON.parse(res.body)
     res['login']
   end
+=======
+>>>>>>> Create Concern Authorization
 end
