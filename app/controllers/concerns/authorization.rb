@@ -24,4 +24,16 @@ module Authorization
     res = JSON.parse(res.body)
     res[0]['email']
   end
+
+  def get_username_from_github(access_token)
+    uri = URI.parse('https://api.github.com/user')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(uri.path)
+    req["Content-Type"] = "application/json"
+    req["Authorization"] = "token #{access_token}"
+    res = http.request(req)
+    res = JSON.parse(res.body)
+    res['login']
+  end
 end

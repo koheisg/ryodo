@@ -8,8 +8,10 @@ class UsersController < ApplicationController
 
   def create
     access_token = request_access_token(params[:code])
+    username = get_username_from_github(access_token)
     email = get_email_from_github(access_token)
     user = User.new(
+      username: username,
       email: email)
     if user.save
       session[:user_id] = user.id
