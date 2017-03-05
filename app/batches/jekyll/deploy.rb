@@ -11,10 +11,12 @@ class Jekyll::Deploy < Rails::Generators::Base
         commit_name = "sample"
         run "jekyll new #{u_dir}"
         run "cd #{u_dir}"
-        git remote: "add #{remote_name} https://github.com/#{user.username}/#{user.github_repository.name}.git"
-        git add: "#{u_dir}*"
-        git commit: ". -m '#{commit_name}'"
-        git push: "-f #{remote_name}:#{commit_name}"
+        git remote: "add #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
+        git remote: "set-url #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
+        git add: "-f #{u_dir}*"
+        run "cd tmp/#{user.id} && git add ."
+        git commit: " -m '#{commit_name}'"
+        git push: "-f #{remote_name} master"
       end
     end
   end
