@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
-gem 'bcrypt', '~> 3.1.11'
 gem 'puma', '~> 3.0'
 gem 'faml'
 gem 'haml-rails'
@@ -14,7 +13,6 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  # デバッグ用
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'

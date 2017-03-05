@@ -1,26 +1,24 @@
 class UsersController < ApplicationController
+  include Authorization
+
   def new
-    @user = User.new
+    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=http%3A%2F%2Flocalhost%3A3000/github/authorize/callback/signup&scope=user%20repo"
+    redirect_to url
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
+    access_token = request_access_token(params[:code])
+    email = get_email_from_github(access_token)
+    user = User.new(
+      email: email)
+    if user.save
       session[:user_id] = user.id
       redirect_to articles_path
     else
-      respond_to do |format|
-        format.html { render :new }
-      end
+      redirect_to root_path # temporary
     end
   end
 
   def edit
   end
-
-  private
-
-   def user_params
-     params.require(:user).permit(:email, :password, :password_confirmation)
-   end
 end

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   get '/signup',  to: 'users#new'
-  get '/me/edit', to: 'users#edit'
-  resources :users, only: %i(create)
+  get '/github/authorize/callback/signup', to: 'users#create'
   get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
+  get '/github/authorize/callback/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+  get '/me/edit', to: 'users#edit'
   resources :articles, except: %i(delete)
   resources :tags
   resources :article_tags, only: %i(destroy)
