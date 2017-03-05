@@ -7,9 +7,13 @@ class SessionsController < ApplicationController
   end
 
   def create
+<<<<<<< b16d741961364466c8bafa6b05fa5ed59b33b487
     access_token = request_access_token(params[:code])
     email = get_email_from_github(access_token)
     user = User.find_by(email: email)
+=======
+    user = User.find_by(email: user_params[:email])
+>>>>>>> Change login views and sessioncontroller
     if user
       session[:user_id] = user.id
       redirect_to articles_path
