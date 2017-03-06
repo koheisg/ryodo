@@ -6,16 +6,14 @@ class Jekyll::Deploy < Rails::Generators::Base
   def execute
     User.all.each do |user|
       if user.github_access_token && user.github_repository
-        u_dir = "#{Rails.root}/tmp/user_#{user.id}/"
-        remote_name = "remote-#{user.username}"
+        u_dir = "#{Rails.root}/tmp/user_#{user.id}"
+        branch_name = generate_branch_name
         commit_name = "sample"
-        run "jekyll new #{u_dir}"
-        run "cd #{u_dir}"
-        git remote: "add #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
-        git remote: "set-url #{remote_name} git@github.com:#{user.username}/#{user.github_repository.name}.git"
-        run "cd tmp/#{user.id} && git add ."
-        git commit: " -m '#{commit_name}'"
-        git push: "-f #{remote_name} master"
+        run "cd #{u_dir} && git checkout -b #{branch_name}"
+        run "cd #{u_dir} && jekyll new ./"
+        run "cd #{u_dir} && git add ."
+        run "cd #{u_dir} && git commit -m '#{commit_name}'"
+        run "cd #{u_dir} && git push origin #{branch_name}"
       end
     end
   end
@@ -25,7 +23,7 @@ class Jekyll::Deploy < Rails::Generators::Base
       Rails.application.class.name.split('::').first.underscore
     end
 
-    def branch_name
+    def generate_branch_name
       "#{application_name}-#{Date.today.to_s}-#{SecureRandom.uuid}"
     end
 end
