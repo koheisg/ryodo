@@ -8,7 +8,7 @@ class Jekyll::Request < Rails::Generators::Base
   def execute
     User.all.each do |user|
       u_dir = "#{Rails.root}/tmp/user_#{user.id}"
-      if !run "cat #{u_dir}/_posts/*.markdown"
+      unless Dir.glob("#{u_dir}/_posts/*.markdown").present?
         commit_name = "Update article #{Date.today.to_s}"
         branch_name = generate_branch_name
         run "cd #{u_dir} && git checkout -b #{branch_name}"
