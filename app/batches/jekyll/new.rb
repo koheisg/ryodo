@@ -1,6 +1,8 @@
 class Jekyll::New < Rails::Generators::Base
   def self.run
-    new.execute
+    if !run "cd #{Rails.root}/tmp/user_#{user.id}"
+      new.execute
+    end
   end
 
   def execute
@@ -14,13 +16,4 @@ class Jekyll::New < Rails::Generators::Base
       end
     end
   end
-
-  private
-    def application_name
-      Rails.application.class.name.split('::').first.underscore
-    end
-
-    def generate_branch_name
-      "#{application_name}-#{Date.today.to_s}-#{SecureRandom.uuid}"
-    end
 end
