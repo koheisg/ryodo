@@ -23,7 +23,7 @@ class Jekyll::Request < Rails::Generators::Base
 
   def export_articles(user)
     user.articles.each do |article|
-      if article.status?
+      if article.published?
         u_dir = "#{Rails.root}/tmp/user_#{user.id}"
         f = File.open("#{u_dir}/_posts/#{article.created_at.to_s.split(' ').first}-#{article.title}.md", 'w')
         f.print front_matter(article.title)
