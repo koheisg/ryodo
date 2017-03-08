@@ -10,4 +10,6 @@
     = t.select :tag_id, current_user.tags.all.collect { |t| [t.name, t.id] }, include_blank: true
     - if t.object.id
       = link_to '[X]', article_tag_path(t.object.id), method: :delete
+  記事を公開にする
+  = f.check_box :published
   = f.submit

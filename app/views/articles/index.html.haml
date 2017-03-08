@@ -9,7 +9,8 @@
   %br/
   = link_to "編集する", edit_article_path(post)
   %br
-  = link_to "記事を見る", article_path(post)
+  - if post.published?
+    = link_to "記事を見る", article_path(post)
   %br
 %br
 = link_to "記事を作成する", new_article_path
