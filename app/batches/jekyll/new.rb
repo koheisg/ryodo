@@ -7,7 +7,7 @@ class Jekyll::New < Rails::Generators::Base
     User.all.each do |user|
       if user.github_access_token && user.github_repository
         u_dir = "#{Rails.root}/tmp/user_#{user.id}"
-        if run "cd #{u_dir}" && !run "cd #{u_dir}/_posts"
+        if Dir.glob("#{u_dir}").present?
           run "cd #{u_dir} && jekyll new ./"
           run "rm -f #{u_dir}/_posts/*.markdown"
           run "cd #{u_dir} && git add ."
