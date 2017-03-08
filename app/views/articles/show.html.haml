@@ -1,5 +1,8 @@
-= @article.title
-%br
-= markdown(@article.content)
-%br
-= link_to "戻る", :back
+- if @article.status?
+  = @article.title
+  %br
+  = markdown(@article.content)
+  %br
+  = link_to "戻る", :back
+- else
+  この記事は下書き状態です
