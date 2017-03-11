@@ -1,5 +1,6 @@
 FactoryGirl.define do
-  factory :articletag do
-    
+  factory :article_tag do
+    article
+    tag
   end
 end
