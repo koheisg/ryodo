@@ -24,6 +24,8 @@ group :development, :test do
   gem 'hirb-unicode'
   gem 'dotenv-rails'
   gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
