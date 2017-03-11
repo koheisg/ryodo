@@ -241,4 +241,13 @@ describe User do
       expect(user.github_access_token.token_type).to eq 'B'
     end
   end
+
+  describe 'VCR' do
+    it 'save response' do
+      VCR.use_cassette("test01") do
+        Net::HTTP.get_response(URI('http://localhost:3000/signup'))
+        expect(response.body).to be_truthy
+      end
+    end
+  end
 end
