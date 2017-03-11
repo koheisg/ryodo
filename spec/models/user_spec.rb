@@ -19,9 +19,6 @@ describe User do
       no_email = User.new(username: 'kameda')
       expect(no_email.save).to be_falsey
     end
-    it 'has id' do
-      expect(user.id).to be_truthy
-    end
   end
 
   describe 'articles' do
@@ -73,9 +70,18 @@ describe User do
       expect(repo).to be_truthy
     end
 
-    it 'can have repository through proper validation' do
+    it 'cannot have repository when name is blank' do
       repo = user.build_github_repository
       expect(repo.save).to be_falsey
+    end
+
+    it 'refresh to new repository when create its another' do
+      repo = user.build_github_repository(name: "repo1")
+      repo.save
+      expect(user.github_repository.name).to eq 'repo1'
+      repo = user.build_github_repository(name: "repo2")
+      repo.save
+      expect(user.github_repository.name).to eq 'repo2'
     end
 
     it 'will not have any repository when fails to build' do
@@ -83,6 +89,26 @@ describe User do
       bad_repo.save
       expect(user.github_repository.user_id).to eq user.id
       expect(user.github_repository.name).to be_nil
+    end
+  end
+
+  describe 'access token' do
+    it 'can have access token' do
+      token = user.build_github_access_token
+      expect(user.github_access_token.save).to be_truthy
+    end
+
+    it 'refresh to new access token when create its another' do
+      token = user.build_github_access_token(access_token: "abc", scope: "scope1", token_type: "A")
+      token.save
+      expect(user.github_access_token.access_token).to eq 'abc'
+      expect(user.github_access_token.scope).to eq 'scope1'
+      expect(user.github_access_token.token_type).to eq 'A'
+      token = user.build_github_access_token(access_token: "def", scope: "scope2", token_type: "B")
+      token.save
+      expect(user.github_access_token.access_token).to eq 'def'
+      expect(user.github_access_token.scope).to eq 'scope2'
+      expect(user.github_access_token.token_type).to eq 'B'
     end
   end
 end
