@@ -245,7 +245,7 @@ describe User do
   describe 'VCR' do
     it 'save response' do
       VCR.use_cassette("test01") do
-        Net::HTTP.get_response(URI('http://localhost:3000/signup'))
+        Net::HTTP.get_response(URI("https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&scope=user%20repo"))
         expect(response.body).to be_truthy
       end
     end
