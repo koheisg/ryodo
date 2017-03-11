@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_one :github_access_token
   has_one :github_repository
   validates :username, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
 
   def login?
     persisted?
