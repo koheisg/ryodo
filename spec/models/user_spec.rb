@@ -236,6 +236,7 @@ describe User do
       scope: "scope2",
       token_type: "B" }
     }
+  
     it 'can have access token' do
       token.save
       expect(user.github_access_token.save).to be_truthy
