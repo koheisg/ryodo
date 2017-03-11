@@ -2,11 +2,12 @@ require 'rails_helper'
 
 describe User do
   let(:user) { FactoryGirl.build :user }
-  let(:user_with_no_params) { User.new() }
-  let(:user_with_no_username) { User.new(email: 'user001@example.com') }
-  let(:user_with_no_email) { User.new(username: 'user001') }
 
   describe 'User validation' do
+    let(:user_with_no_params) { User.new() }
+    let(:user_with_no_username) { User.new(email: 'user001@example.com') }
+    let(:user_with_no_email) { User.new(username: 'user001') }
+
     context 'when passed the validation' do
       it 'is saved' do
         expect(user.save).to be_truthy
