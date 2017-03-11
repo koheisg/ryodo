@@ -28,4 +28,17 @@ describe User do
       end
     end
   end
+
+  describe 'articles' do
+    it 'can create article associated with itself through proper validation' do
+      user.save
+      article = user.articles.build(title: "title")
+      expect(article.save).to be_truthy
+    end
+
+    it 'cannot create article associated with itself when title is blank' do
+      article = user.articles.build
+      expect(article.save).to be_falsey
+    end
+  end
 end
