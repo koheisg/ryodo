@@ -29,80 +29,91 @@ describe User do
     end
   end
 
-  describe 'articles' do
+  describe 'saving articles through User' do
     let(:article_with_title) { user.articles.build(title: "title") }
     let(:article_with_no_title) { user.articles.build }
     let(:params1) { { title: "post1" } }
     let(:params2) { { title: "post2" } }
 
-    it 'can create its article through proper validation' do
-      expect(article_with_title.save).to be_truthy
+    context 'when passed the validation' do
+      it 'saves its article' do
+        expect(article_with_title.save).to be_truthy
+      end
+
+      it 'saves multiple articles' do
+        article1 = user.articles.build(params1)
+        article2 = user.articles.build(params2)
+        expect(article1.save).to be_truthy
+        expect(article2.save).to be_truthy
+      end
     end
 
-    it 'cannot create its article when title is blank' do
-      expect(article_with_no_title.save).to be_falsey
-    end
-
-    it 'can have many articles' do
-      article1 = user.articles.build(params1)
-      article2 = user.articles.build(params2)
-      expect(article1.save).to be_truthy
-      expect(article2.save).to be_truthy
+    context 'when did not pass the validation' do
+      it 'fails to save the article with no title' do
+        expect(article_with_no_title.save).to be_falsey
+      end
     end
   end
 
-  describe 'tags' do
+  describe 'saving tags through User' do
     let(:tag_with_name) { user.tags.build(name: "tag") }
     let(:tag_with_no_name) { user.tags.build }
     let(:params1) { { name: "tag1" } }
     let(:params2) { { name: "tag2" } }
 
-    it 'can create its tag through proper validation' do
-      expect(tag_with_name.save).to be_truthy
+    context 'when passed the validation' do
+      it 'saves its tag' do
+        expect(tag_with_name.save).to be_truthy
+      end
+      it 'saves multiple tags' do
+        tag1 = user.tags.build(params1)
+        tag2 = user.tags.build(params2)
+        expect(tag1.save).to be_truthy
+        expect(tag2.save).to be_truthy
+      end
     end
 
-    it 'cannot create its tag when name is blank' do
-      expect(tag_with_no_name.save).to be_falsey
-    end
-
-    it 'can have many tags' do
-      tag1 = user.tags.build(params1)
-      tag2 = user.tags.build(params2)
-      expect(tag1.save).to be_truthy
-      expect(tag2.save).to be_truthy
+    context 'when did not pass the validation' do
+      it 'fails to save with no name' do
+        expect(tag_with_no_name.save).to be_falsey
+      end
     end
   end
 
-  describe 'repository' do
+  describe 'saving repository through User' do
     let(:repo_with_name) { user.build_github_repository(name: "repo") }
     let(:repo_with_no_name) { user.build_github_repository }
     let(:params1) { { name: "repo1" } }
     let(:params2) { { name: "repo2" } }
 
-    it 'can have repository through proper validation' do
-      expect(repo_with_name).to be_truthy
+    context 'when params have name' do
+      it 'saves its repo' do
+        expect(repo_with_name).to be_truthy
+      end
+
+      it 'refresh to new repo when creates its another' do
+        repo = user.build_github_repository(params1)
+        repo.save
+        expect(user.github_repository.name).to eq params1[:name]
+        repo = user.build_github_repository(params2)
+        repo.save
+        expect(user.github_repository.name).to eq params2[:name]
+      end
     end
 
-    it 'cannot have repository when name is blank' do
-      expect(repo_with_no_name.save).to be_falsey
-    end
+    context 'saving when params have no name' do
+      it 'fails to save its repo' do
+        expect(repo_with_no_name.save).to be_falsey
+      end
 
-    it 'refresh to new repository when create its another' do
-      repo = user.build_github_repository(params1)
-      repo.save
-      expect(user.github_repository.name).to eq params1[:name]
-      repo = user.build_github_repository(params2)
-      repo.save
-      expect(user.github_repository.name).to eq params2[:name]
-    end
-
-    it 'will not have no repository name when fails to build' do
-      repo_with_no_name.save
-      expect(user.github_repository.name).to be_nil
+      it 'will not have any repository name' do
+        repo_with_no_name.save
+        expect(user.github_repository.name).to be_nil
+      end
     end
   end
 
-  describe 'access token' do
+  describe 'saving access token through User' do
     let(:token) { user.build_github_access_token }
     let(:params1) { {
       access_token: "abc",
@@ -114,23 +125,24 @@ describe User do
       scope: "scope2",
       token_type: "B" }
     }
-  
-    it 'can have access token' do
-      token.save
-      expect(user.github_access_token.save).to be_truthy
-    end
 
-    it 'refresh to new access token when create its another' do
-      token = user.build_github_access_token(params1)
-      token.save
-      expect(user.github_access_token.access_token).to eq params1[:access_token]
-      expect(user.github_access_token.scope).to eq params1[:scope]
-      expect(user.github_access_token.token_type).to eq params1[:token_type]
-      token = user.build_github_access_token(params2)
-      token.save
-      expect(user.github_access_token.access_token).to eq params2[:access_token]
-      expect(user.github_access_token.scope).to eq params2[:scope]
-      expect(user.github_access_token.token_type).to eq params2[:token_type]
+    context 'when params are filled' do
+      it 'saves its access token' do
+        expect(token.save).to be_truthy
+      end
+
+      it 'refreshes to new access token when creates its another' do
+        token = user.build_github_access_token(params1)
+        token.save
+        expect(user.github_access_token.access_token).to eq params1[:access_token]
+        expect(user.github_access_token.scope).to eq params1[:scope]
+        expect(user.github_access_token.token_type).to eq params1[:token_type]
+        token = user.build_github_access_token(params2)
+        token.save
+        expect(user.github_access_token.access_token).to eq params2[:access_token]
+        expect(user.github_access_token.scope).to eq params2[:scope]
+        expect(user.github_access_token.token_type).to eq params2[:token_type]
+      end
     end
   end
 end
