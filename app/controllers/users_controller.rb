@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include Authorization
 
   def new
-    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=http%3A%2F%2Flocalhost%3A3000/github/authorize/callback/signup&scope=user%20repo"
+    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{ENV['APP_HOST']}/github/authorize/callback/signup&scope=user%20repo"
     redirect_to url
   end
 
