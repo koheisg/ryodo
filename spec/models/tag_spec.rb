@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Tag do
   let(:tag) { FactoryGirl.build :tag }
 
-  describe 'Tag validation' do
+  describe '#validation' do
     let(:tag_with_params) { Tag.new(params) }
 
     context 'when given the correct params' do
