@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :article do
-    user_id 1
+    user
     title "Title"
     content "This is the content."
     published true
