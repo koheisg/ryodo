@@ -4,38 +4,39 @@ describe Tag do
   let(:tag) { FactoryGirl.build :tag }
 
   describe 'Tag validation' do
-    let(:tag_with_no_params) { Tag.new() }
-    let(:tag_with_no_name) { Tag.new(user_id: 1) }
-    let(:tag_with_no_user_id) { Tag.new(name: "Tag1") }
-    let(:barely_long_name) { Array.new(20){[*0..1].sample}.join }
-    let(:long_name) { Array.new(21){[*0..1].sample}.join }
-    context 'passed the validation' do
-      it 'saves the tag' do
-        expect(tag.save).to be_truthy
+    let(:tag_with_params) { Tag.new(params) }
+
+    context 'when given the correct params' do
+      let(:barely_long_name) { Array.new(20){[*0..1].sample}.join }
+      let(:params) { {user_id: 1, name: barely_long_name} }
+      it 'is valid' do
+        expect(tag).to be_valid
       end
 
-      it 'saves the tag with title less than 21' do
-        tag_with_barely_long_name = Tag.new(user_id: 1, name: barely_long_name)
-        expect(tag_with_barely_long_name.save).to be_truthy
+      it 'is valid with title less than 51 words' do
+        expect(tag_with_params).to be_valid
       end
     end
 
-    context 'did not pass the validation' do
-      it 'fails to save the tag with no params' do
-        expect(tag_with_no_params.save).to be_falsey
+    context 'when given the empty params' do
+      let(:params) { {} }
+      it 'is invalid' do
+        expect(tag_with_params).to be_invalid
       end
+    end
 
-      it 'fails to save the tag with no name' do
-        expect(tag_with_no_name.save).to be_falsey
+    context 'when given no name' do
+    let(:params) { {user_id: 1} }
+      it 'is invalid' do
+        expect(tag_with_params).to be_invalid
       end
+    end
 
-      it 'fails to save the tag with no user association' do
-        expect(tag_with_no_user_id.save).to be_falsey
-      end
-
-      it 'fails to save the tag with name longer than 20' do
-        tag_with_long_name = Tag.new(user_id: 1, name: long_name)
-        expect(tag_with_long_name.save).to be_falsey
+    context 'when given the wrong params' do
+      let(:long_name) { Array.new(21){[*0..1].sample}.join }
+      let(:params) { {user_id: 1, name: long_name} }
+      it 'is invalid with title longer than 50 words' do
+        expect(tag_with_params).to be_invalid
       end
     end
   end
