@@ -223,47 +223,17 @@ describe User do
       end
     end
 
-    context 'saving when params have no name' do
-      it 'fails to save its repo' do
-        expect(repo_with_no_name.save).to be_falsey
-      end
-
-      it 'will not have any repository name' do
-        repo_with_no_name.save
-        expect(user.github_repository.name).to be_nil
+    context 'when given no username' do
+      let(:params) { {email: 'user001@example.com' } }
+      it 'is invalid' do
+        expect(user_with_params).to be_invalid
       end
     end
-  end
 
-  describe 'saving access token through User' do
-    let(:token) { user.build_github_access_token }
-    let(:params1) { {
-      access_token: "abc",
-      scope: "scope1",
-      token_type: "A" }
-    }
-    let(:params2) { {
-      access_token: "def",
-      scope: "scope2",
-      token_type: "B" }
-    }
-
-    context 'when params are filled' do
-      it 'saves its access token' do
-        expect(token.save).to be_truthy
-      end
-
-      it 'refreshes to new access token when creates its another' do
-        token = user.build_github_access_token(params1)
-        token.save
-        expect(user.github_access_token.access_token).to eq params1[:access_token]
-        expect(user.github_access_token.scope).to eq params1[:scope]
-        expect(user.github_access_token.token_type).to eq params1[:token_type]
-        token = user.build_github_access_token(params2)
-        token.save
-        expect(user.github_access_token.access_token).to eq params2[:access_token]
-        expect(user.github_access_token.scope).to eq params2[:scope]
-        expect(user.github_access_token.token_type).to eq params2[:token_type]
+    context 'when given no email' do
+      let(:params) { {username: 'user001' } }
+      it 'is invalid' do
+        expect(user_with_params).to be_invalid
       end
     end
   end
