@@ -1,5 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe ArticleTag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Tag do
+  let(:articletag) { FactoryGirl.build :article_tag }
+  let(:articletag_with_params) { ArticleTag.new(params) }
+  let(:tag) { FactoryGirl.build :tag }
+
+  context 'when given the correct params' do
+    it 'is valid' do
+      expect(articletag).to be_valid
+    end
+  end
+
+  context 'when given only tag' do
+    let(:params) { {tag: tag} }
+    it 'is valid' do
+      expect(articletag_with_params).to be_valid
+    end
+  end
+
+  context 'when given params with no tag' do
+    let(:params) { {article_id: 1} }
+    it 'is invalid' do
+      expect(articletag_with_params).to be_invalid
+    end
+  end
 end
