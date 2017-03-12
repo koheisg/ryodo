@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Article do
   let(:article) { FactoryGirl.build :article }
 
-  describe 'Article validation' do
+  describe '#validation' do
     let(:article_with_params) { Article.new(params) }
 
     context 'when given the correct params' do
