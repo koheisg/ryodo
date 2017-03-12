@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Article do
+describe GithubAccessToken do
   let(:token) { FactoryGirl.build :github_access_token }
 
   describe '#validation' do

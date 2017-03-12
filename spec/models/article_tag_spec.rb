@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Tag do
+describe ArticleTag do
   let(:articletag) { FactoryGirl.build :article_tag }
   let(:articletag_with_params) { ArticleTag.new(params) }
   let(:tag) { FactoryGirl.build :tag }

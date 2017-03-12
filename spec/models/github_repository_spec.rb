@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe Article do
+describe GithubRepository do
   let(:repo) { FactoryGirl.build :github_repository }
 
-  describe 'Article validation' do
+  describe '#validation' do
     let(:repo_with_params) { GithubRepository.new(params) }
 
     context 'when given the correct params' do
