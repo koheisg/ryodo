@@ -26,6 +26,6 @@ class SessionsController < ApplicationController
   private
 
     def app_host
-      URI.escape ENV['APP_HOST']
+      URI.escape ENV['APP_HOST'].to_s
     end
 end
