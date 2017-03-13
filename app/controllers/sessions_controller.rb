@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   include Authorization
 
   def new
-    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{ENV['APP_HOST']}/github/authorize/callback/login&scope=user%20repo"
+    url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{app_host}/github/authorize/callback/login&scope=user%20repo"
     redirect_to url
   end
 
@@ -22,4 +22,10 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     redirect_to root_path # temporary
   end
+
+  private
+
+    def app_host
+      URI.escape ENV['APP_HOST']
+    end
 end
