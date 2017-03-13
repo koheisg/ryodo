@@ -27,6 +27,6 @@ class UsersController < ApplicationController
   private
 
     def app_host
-      URI.escape ENV['APP_HOST'].to_s
+      URI.escape ENV['APP_HOST']
     end
 end
