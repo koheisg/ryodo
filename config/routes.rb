@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'root#index'
   get '/signup',  to: 'users#new'
   get '/github/authorize/callback/signup', to: 'users#create'
   get '/login', to: 'sessions#new'
