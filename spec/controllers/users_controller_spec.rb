@@ -9,13 +9,15 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET #create' do
-    it 'succeeds when code is valid' do
-      VCR.use_cassette('users_create') do
-        params = {
-          code: '8e2bf871424da25ccfef'}
-        get :create, params
-        expect(User.first).to be_truthy
-        expect(response).to redirect_to articles_path
+    context 'when code is valid' do
+      it 'creates new user' do
+        VCR.use_cassette('users_create') do
+          params = {
+            code: '8e2bf871424da25ccfef'}
+          get :create, params
+          expect(User.first).to be_truthy
+          expect(response).to redirect_to articles_path
+        end
       end
     end
   end

@@ -4,7 +4,7 @@ RSpec.describe SessionsController, type: :controller do
   before do
     User.create(email: 'kamedashigeru@gmail.com')
   end
-  
+
   describe 'GET #new' do
     it 'is 302' do
       get :new
@@ -13,12 +13,14 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'GET #create' do
-    it 'succeeds when code is valid' do
-      VCR.use_cassette('users_create') do
-        params = {
-          code: '8e2bf871424da25ccfef'}
-        get :create, params
-        expect(response).to redirect_to articles_path
+    context 'when code is valid' do
+      it 'logs in' do
+        VCR.use_cassette('users_create') do
+          params = {
+            code: '8e2bf871424da25ccfef'}
+          get :create, params
+          expect(response).to redirect_to articles_path
+        end
       end
     end
   end
