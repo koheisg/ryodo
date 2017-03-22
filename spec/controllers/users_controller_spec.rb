@@ -19,6 +19,17 @@ RSpec.describe UsersController, type: :controller do
           expect(response).to redirect_to articles_path
         end
       end
+      context 'when code is invalid' do
+        it 'fails to create new user' do
+          VCR.use_cassette('users_create_failure') do
+            params = {
+              code: 'fake code'}
+            get :create, params
+            expect(User.first).to be_nil
+            expect(response).to redirect_to root_path
+          end
+        end
+      end
     end
   end
 end

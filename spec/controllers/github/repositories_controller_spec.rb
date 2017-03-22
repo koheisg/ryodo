@@ -21,5 +21,17 @@ RSpec.describe Github::RepositoriesController, type: :controller do
         end
       end
     end
+    context 'when access token is invalid' do
+      it 'raises exception and does not save repository name' do
+        VCR.use_cassette('github_repository_failure') do
+          GithubAccessToken.create(user: user, access_token: 'fake token')
+          params = {
+            github_repository: {
+               name: 'Sample' }}
+          get :create, params, session
+          expect(user.github_repository).to be_nil
+        end
+      end
+    end
   end
 end

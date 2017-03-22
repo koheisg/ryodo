@@ -25,5 +25,15 @@ RSpec.describe ::Github::AuthorizeController, type: :controller do
         end
       end
     end
+    context 'when code is invalid' do
+      it 'fails to save access token' do
+        VCR.use_cassette('github_authorize_failure') do
+          params = {
+            code: 'fake code'}
+          get :create, params, session
+          expect(user.github_access_token).to be_nil
+        end
+      end
+    end
   end
 end

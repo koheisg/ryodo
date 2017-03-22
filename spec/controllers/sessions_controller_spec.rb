@@ -23,5 +23,15 @@ RSpec.describe SessionsController, type: :controller do
         end
       end
     end
+    context 'when code is invalid' do
+      it 'fails to log in' do
+        VCR.use_cassette('users_login_failure') do
+          params = {
+            code: 'fake code'}
+          get :create, params
+          expect(response).to redirect_to root_path
+        end
+      end
+    end
   end
 end
