@@ -22,7 +22,11 @@ module Authorization
     req["Authorization"] = "token #{access_token}"
     res = http.request(req)
     res = JSON.parse(res.body)
-    res[0]['email']
+    if !res[0].nil?
+      res[0]['email']
+    else
+      nil
+    end
   end
 
   def get_username_from_github(access_token)
