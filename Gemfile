@@ -28,7 +28,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'kaminari'
+  gem 'simplecov', :require => false
 end
 
 group :development do
