@@ -1,3 +1,6 @@
 - @articles.each do |article|
-  = link_to article.title, edit_article_path(article)
+  = article.title
+  = link_to "編集する", edit_article_path(article)
+  - if article.published?
+    = link_to "記事を見る", article_path(article)
   %br

@@ -2,15 +2,16 @@
 = current_user.email
 %br
 %br
-- @articles.each do |post|
-  = post.title
+- @articles.each do |article|
+  = article.title
   %br
-  = post.content
-  %br/
-  = link_to "編集する", edit_article_path(post)
+  - article.tags.each do |t|
+    = link_to t.name, articles_tags_path(t)
+  = link_to "編集する", edit_article_path(article)
   %br
-  - if post.published?
-    = link_to "記事を見る", article_path(post)
+  - if article.published?
+    = link_to "記事を見る", article_path(article)
+  %br
   %br
 %br
 = link_to "記事を作成する", new_article_path
