@@ -5,9 +5,8 @@
 - @articles.each do |article|
   = article.title
   %br
-  - if article.tags.any?
-    - article.tags.each do |t|
-      = link_to t.name, articles_tags_path(t)
+  - article.tags.each do |t|
+    = link_to t.name, articles_tags_path(t)
   = link_to "編集する", edit_article_path(article)
   %br
   - if article.published?
