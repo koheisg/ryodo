@@ -3,6 +3,7 @@
   - @repository.errors.full_messages.each do |msg|
     = msg
     %br
+ブログを置くレポジトリを、あなたのGithubアカウント内に作成します
 = form_for(@repository) do |f|
   = f.text_area :name
   = f.submit

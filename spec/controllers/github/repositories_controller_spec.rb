@@ -7,13 +7,6 @@ RSpec.describe Github::RepositoriesController, type: :controller do
   let(:user) { User.first }
   let(:session) { {user_id: user.id} }
 
-  describe 'GET #new' do
-    it 'is 302' do
-      get :new, {}, session
-      expect(response.code).to eq("200")
-    end
-  end
-
   describe 'GET #create' do
     let(:user) { User.first }
     context 'when access token is valid' do
