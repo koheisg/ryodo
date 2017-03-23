@@ -7,6 +7,13 @@ RSpec.describe Github::RepositoriesController, type: :controller do
   let(:user) { User.first }
   let(:session) { {user_id: user.id} }
 
+  describe 'GET #new' do
+    it 'is 302' do
+      get :new, {}, session
+      expect(response.code).to eq("200")
+    end
+  end
+
   describe 'GET #create' do
     let(:user) { User.first }
     context 'when access token is valid' do
@@ -30,6 +37,18 @@ RSpec.describe Github::RepositoriesController, type: :controller do
                name: 'Sample' }}
           get :create, params, session
           expect(user.github_repository).to be_nil
+        end
+      end
+    end
+    context 'when name is empty' do
+      it 'renders :new' do
+        VCR.use_cassette('github_repository_failure') do
+          GithubAccessToken.create(user: user, access_token: 'fake token')
+          params = {
+            github_repository: {
+               name: '' }}
+          get :create, params, session
+          expect(response.code).to eq("200")
         end
       end
     end

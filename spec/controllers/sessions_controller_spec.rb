@@ -4,6 +4,8 @@ RSpec.describe SessionsController, type: :controller do
   before do
     User.create(email: 'kamedashigeru@gmail.com')
   end
+  let(:user) { User.first }
+  let(:session) { {user_id: user.id} }
 
   describe 'GET #new' do
     it 'is 302' do
@@ -32,6 +34,13 @@ RSpec.describe SessionsController, type: :controller do
           expect(response).to redirect_to root_path
         end
       end
+    end
+  end
+
+  describe 'GET #destroy' do
+    it 'deletes session user_id' do
+      get :destroy
+      expect(response).to redirect_to root_path
     end
   end
 end
