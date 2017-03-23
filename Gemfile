@@ -29,6 +29,8 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'simplecov', :require => false
+  gem 'capybara'
+  gem 'rack_session_access'
 end
 
 group :development do
