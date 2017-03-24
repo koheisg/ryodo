@@ -28,6 +28,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'vcr'
   gem 'webmock'
+  gem 'kaminari'
 end
 
 group :development do
