@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i(edit update)
 
   def index
-    @articles = current_user.articles.all
+    @articles = current_user.articles.page(params[:page])
   end
 
   def show
