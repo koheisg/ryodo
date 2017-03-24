@@ -47,14 +47,5 @@ RSpec.describe Github::RepositoriesController, type: :controller do
         end
       end
     end
-    context 'when name is empty' do
-      # it 'renders :new' do
-      #   VCR.use_cassette('github_repository_failure') do
-      #     get :create
-      #     raise ActiveRecord::Rollback
-      #     expect(flash[:notice]).to eq("操作に失敗しました。Github連携をもう一度試してみてから、レポジトリの作成を行ってください")
-      #   end
-      # end
-    end
   end
 end
