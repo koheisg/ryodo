@@ -4,3 +4,4 @@
   - if article.published?
     = link_to "記事を見る", article_path(article)
   %br
+= paginate @articles
