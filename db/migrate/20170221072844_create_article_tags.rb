@@ -4,6 +4,7 @@ class CreateArticleTags < ActiveRecord::Migration[5.0]
       t.references :article, foreign_key: true
       t.references :tag, foreign_key: true
       t.timestamps
+      t.index [:article_id, :tag_id], unique: true
     end
   end
 end
