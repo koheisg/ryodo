@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Github::RepositoriesController, type: :controller do
   before do
-    User.create(email: 'kamedashigeru@gmail.com')
+    FactoryGirl.create :user
   end
   let(:user) { User.first }
   let(:session) { {user_id: user.id} }

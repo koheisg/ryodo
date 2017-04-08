@@ -2,10 +2,8 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   before do
-    User.create(email: 'kamedashigeru@gmail.com')
+    FactoryGirl.create :user
   end
-  let(:user) { User.first }
-  let(:session) { {user_id: user.id} }
 
   describe 'GET #new' do
     it 'is 302' do
