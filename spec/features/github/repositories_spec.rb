@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Markdowns", type: :feature do
   describe 'Github Repository' do
-    let(:user) { User.create(email: "123@sample.com") }
+    let(:user) { FactoryGirl.create(:user) }
 
     context 'when visit #new' do
       it 'is 200' do
