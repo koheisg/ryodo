@@ -1,13 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  before do
-    FactoryGirl.create :user
-  end
-
-  let(:correct_params) { {code: '8e2bf871424da25ccfef'} }
-  let(:wrong_params) { {code: 'fake code'} }
-
   describe 'GET #new' do
     it 'is 302' do
       get :new
@@ -16,20 +9,26 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'GET #create' do
-    context 'when code is valid' do
-      it 'logs in' do
-        VCR.use_cassette('users_create') do
-          get :create, correct_params
-          expect(response).to redirect_to articles_path
-        end
+    before do
+      FactoryGirl.create :user
+      VCR.use_cassette(cassette_name) do
+        get :create, params
       end
     end
+
+    context 'when code is valid' do
+      let(:params) { {code: '8e2bf871424da25ccfef'} }
+      let(:cassette_name) { 'users_create' }
+      it 'logs in' do
+        expect(response).to redirect_to articles_path
+      end
+    end
+
     context 'when code is invalid' do
+      let(:params) { {code: 'fake code'} }
+      let(:cassette_name) { 'users_login_failure' }
       it 'fails to log in' do
-        VCR.use_cassette('users_login_failure') do
-          get :create, wrong_params
-          expect(response).to redirect_to root_path
-        end
+        expect(response).to redirect_to root_path
       end
     end
   end

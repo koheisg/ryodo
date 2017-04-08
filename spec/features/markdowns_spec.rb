@@ -10,5 +10,4 @@ RSpec.feature "Markdowns", type: :feature do
       expect(page).to have_text("Hello")
     end
   end
-
 end
