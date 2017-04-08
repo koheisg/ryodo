@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    username "fi1446"
-    email "kamedashigeru@gmail.com"
+    username "ryodo001"
+    email "ryodo@example.com"
   end
 end

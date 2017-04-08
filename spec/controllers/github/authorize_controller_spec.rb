@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ::Github::AuthorizeController, type: :controller do
-  before do
-    FactoryGirl.create :user
-  end
-  let(:user) { User.first }
+  let(:user) { FactoryGirl.create :user }
 
   describe 'GET #new' do
     it 'is 302' do

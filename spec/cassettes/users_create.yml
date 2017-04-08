@@ -74,7 +74,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: access_token=2d3b0ec14fce991d7b34f1990418a30eb09026d4&scope=repo%2Cuser&token_type=bearer
-    http_version: 
+    http_version:
   recorded_at: Mon, 20 Mar 2017 08:35:30 GMT
 - request:
     method: get
@@ -152,8 +152,8 @@ http_interactions:
       - CE2C:1B815:1C3AE76:23D165A:58CF9455
     body:
       encoding: ASCII-8BIT
-      string: '{"login":"fi1446","id":13846808,"avatar_url":"https://avatars0.githubusercontent.com/u/13846808?v=3","gravatar_id":"","url":"https://api.github.com/users/fi1446","html_url":"https://github.com/fi1446","followers_url":"https://api.github.com/users/fi1446/followers","following_url":"https://api.github.com/users/fi1446/following{/other_user}","gists_url":"https://api.github.com/users/fi1446/gists{/gist_id}","starred_url":"https://api.github.com/users/fi1446/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/fi1446/subscriptions","organizations_url":"https://api.github.com/users/fi1446/orgs","repos_url":"https://api.github.com/users/fi1446/repos","events_url":"https://api.github.com/users/fi1446/events{/privacy}","received_events_url":"https://api.github.com/users/fi1446/received_events","type":"User","site_admin":false,"name":"dfsa","company":null,"blog":null,"location":null,"email":null,"hireable":null,"bio":null,"public_repos":11,"public_gists":0,"followers":3,"following":3,"created_at":"2015-08-18T07:12:46Z","updated_at":"2017-03-20T07:07:28Z","private_gists":0,"total_private_repos":1,"owned_private_repos":0,"disk_usage":1262,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":0}}'
-    http_version: 
+      string: '{"login":"ryodo001","id":13846808,"avatar_url":"https://avatars0.githubusercontent.com/u/13846808?v=3","gravatar_id":"","url":"https://api.github.com/users/ryodo001","html_url":"https://github.com/ryodo001","followers_url":"https://api.github.com/users/ryodo001/followers","following_url":"https://api.github.com/users/ryodo001/following{/other_user}","gists_url":"https://api.github.com/users/ryodo001/gists{/gist_id}","starred_url":"https://api.github.com/users/ryodo001/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/ryodo001/subscriptions","organizations_url":"https://api.github.com/users/ryodo001/orgs","repos_url":"https://api.github.com/users/ryodo001/repos","events_url":"https://api.github.com/users/ryodo001/events{/privacy}","received_events_url":"https://api.github.com/users/ryodo001/received_events","type":"User","site_admin":false,"name":"dfsa","company":null,"blog":null,"location":null,"email":null,"hireable":null,"bio":null,"public_repos":11,"public_gists":0,"followers":3,"following":3,"created_at":"2015-08-18T07:12:46Z","updated_at":"2017-03-20T07:07:28Z","private_gists":0,"total_private_repos":1,"owned_private_repos":0,"disk_usage":1262,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":0}}'
+    http_version:
   recorded_at: Mon, 20 Mar 2017 08:35:33 GMT
 - request:
     method: get
@@ -229,7 +229,7 @@ http_interactions:
       - CE2E:1B813:1F8EC26:280C78C:58CF9455
     body:
       encoding: ASCII-8BIT
-      string: '[{"email":"kamedashigeru@gmail.com","primary":true,"verified":true,"visibility":"public"}]'
-    http_version: 
+      string: '[{"email":"ryodo@example.com","primary":true,"verified":true,"visibility":"public"}]'
+    http_version:
   recorded_at: Mon, 20 Mar 2017 08:35:34 GMT
 recorded_with: VCR 3.0.3

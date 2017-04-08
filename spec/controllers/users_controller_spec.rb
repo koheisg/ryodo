@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  let(:correct_params) { {code: '8e2bf871424da25ccfef'} }
+  let(:wrong_params) { {code: 'fake code'} }
+
   describe 'GET #new' do
     it 'is 302' do
       get :new
@@ -12,9 +15,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when code is valid' do
       it 'creates new user' do
         VCR.use_cassette('users_create') do
-          params = {
-            code: '8e2bf871424da25ccfef'}
-          get :create, params
+          get :create, correct_params
           expect(User.first).to be_truthy
           expect(response).to redirect_to articles_path
         end
@@ -22,9 +23,7 @@ RSpec.describe UsersController, type: :controller do
       context 'when code is invalid' do
         it 'fails to create new user' do
           VCR.use_cassette('users_create_failure') do
-            params = {
-              code: 'fake code'}
-            get :create, params
+            get :create, wrong_params
             expect(User.first).to be_nil
             expect(response).to redirect_to root_path
           end

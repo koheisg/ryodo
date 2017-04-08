@@ -5,6 +5,9 @@ RSpec.describe SessionsController, type: :controller do
     FactoryGirl.create :user
   end
 
+  let(:correct_params) { {code: '8e2bf871424da25ccfef'} }
+  let(:wrong_params) { {code: 'fake code'} }
+
   describe 'GET #new' do
     it 'is 302' do
       get :new
@@ -16,9 +19,7 @@ RSpec.describe SessionsController, type: :controller do
     context 'when code is valid' do
       it 'logs in' do
         VCR.use_cassette('users_create') do
-          params = {
-            code: '8e2bf871424da25ccfef'}
-          get :create, params
+          get :create, correct_params
           expect(response).to redirect_to articles_path
         end
       end
@@ -26,9 +27,7 @@ RSpec.describe SessionsController, type: :controller do
     context 'when code is invalid' do
       it 'fails to log in' do
         VCR.use_cassette('users_login_failure') do
-          params = {
-            code: 'fake code'}
-          get :create, params
+          get :create, wrong_params
           expect(response).to redirect_to root_path
         end
       end
