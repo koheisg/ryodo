@@ -4,19 +4,23 @@ RSpec.describe Github::AuthorizeController, type: :controller do
   let(:user) { FactoryGirl.create :user }
 
   describe 'GET #new' do
-    context 'when user is logged in' do
+    before do
+      controller.session[:user_id] = id
+      get :new
+    end
+
+    context 'when user is logged into the service' do
+      let(:id) { user.id }
       it 'accesses to github' do
-        controller.session[:user_id] = user.id
-        get :new
         aggregate_failures 'test responses' do
           expect(response.code).to eq("302")
           expect(response).to redirect_to("https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&scope=user%20repo")
         end
       end
     end
-    context 'when user is not logged in' do
+    context 'when user is not logged into the service' do
+      let(:id) {}
       it 'redirects to login_path' do
-        get :new
         aggregate_failures 'test responses' do
           expect(response.code).to eq('302')
           expect(response).to redirect_to(login_path)
@@ -40,7 +44,6 @@ RSpec.describe Github::AuthorizeController, type: :controller do
         expect(user.github_access_token).to be_truthy
       end
     end
-
     context 'when code is invalid' do
       let(:params) { {code: 'fake code'} }
       let(:cassette_name) { 'github_authorize_failure' }

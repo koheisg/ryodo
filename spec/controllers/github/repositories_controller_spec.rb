@@ -4,16 +4,20 @@ RSpec.describe Github::RepositoriesController, type: :controller do
   let(:user) { FactoryGirl.create :user }
 
   describe 'GET #new' do
-    context 'when user is logged in' do
+    before do
+      controller.session[:user_id] = id
+      get :new
+    end
+
+    context 'when user is logged into the service' do
+      let(:id) { user.id }
       it 'is 200' do
-        controller.session[:user_id] = user.id
-        get :new
         expect(response.code).to eq('200')
       end
     end
-    context 'when user is not logged in' do
+    context 'when user is not logged into the service' do
+      let(:id) {}
       it 'redirects to login_path' do
-        get :new
         aggregate_failures 'test responses' do
           expect(response.code).to eq('302')
           expect(response).to redirect_to(login_path)
@@ -39,7 +43,6 @@ RSpec.describe Github::RepositoriesController, type: :controller do
         expect(user.github_repository).to be_truthy
       end
     end
-
     context 'when access token is invalid' do
       let(:params) { {github_repository: { name: 'Sample' }} }
       let(:cassette_name) { 'github_repository_failure' }
@@ -51,7 +54,6 @@ RSpec.describe Github::RepositoriesController, type: :controller do
         end
       end
     end
-
     context 'when name is empty' do
       let(:params) { {github_repository: { name: '' }} }
       let(:cassette_name) { 'github_repository_failure' }
