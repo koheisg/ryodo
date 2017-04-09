@@ -11,12 +11,15 @@ RSpec.describe UsersController, type: :controller do
 
     context "when user is already logged into the service" do
       let(:id) { user.id }
-      it 'is redirects back' do
-        expect(response.code).to eq("302")
+      it 'is redirects back to articles_path' do
+        aggregate_failures 'tests responses' do
+          expect(response.code).to eq("302")
+          expect(response).to redirect_to articles_path
+        end
       end
     end
     context "when user is not logged into the service" do
-      let(:id) { user.id }
+      let(:id) {}
       it 'is redirects to Github with redirection to /github/authorize/callback/signup' do
         aggregate_failures 'tests responses' do
           expect(response.code).to eq("302")

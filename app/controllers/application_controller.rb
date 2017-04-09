@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
   def verify_user
     redirect_to login_path unless current_user.login?
   end
+
+  def is_login
+    redirect_to articles_path if current_user.login?
+  end
 end

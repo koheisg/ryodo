@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include Authorization
+  before_action :is_login, only: %i(new)
 
   def new
     url = "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{app_host}/github/authorize/callback/signup&scope=user%20repo"
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to articles_path
     else
-      redirect_to root_path # temporary
+      redirect_to root_path
     end
   end
 
