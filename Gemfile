@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jekyll'
 gem 'redcarpet'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -28,7 +29,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'kaminari'
+  gem 'simplecov', :require => false
+  gem 'capybara'
 end
 
 group :development do

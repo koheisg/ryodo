@@ -15,9 +15,7 @@ class Github::RepositoriesController < ApplicationController
           flash[:notice] = "レポジトリを作成しました"
           redirect_to me_edit_path
         else
-          flash[:notice] = "通信に失敗しました。Github連携をもう一度試してみてから、レポジトリの作成を行ってください"
-          redirect_to me_edit_path
-          raise ActiveRecord::Rollback
+          raise
         end
       else
         respond_to do |format|
@@ -25,7 +23,7 @@ class Github::RepositoriesController < ApplicationController
         end
       end
     end
-  rescue ActiveRecord::Rollback
+  rescue
     flash[:notice] = "操作に失敗しました。Github連携をもう一度試してみてから、レポジトリの作成を行ってください"
     redirect_to me_edit_path
   end

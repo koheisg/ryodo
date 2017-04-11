@@ -22,6 +22,9 @@ module Authorization
     req["Authorization"] = "token #{access_token}"
     res = http.request(req)
     res = JSON.parse(res.body)
+    unless res[0]
+      return nil
+    end
     res[0]['email']
   end
 
