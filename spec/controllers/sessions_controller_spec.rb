@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let(:user) { FactoryGirl.create :user }
+  let!(:user) { FactoryGirl.create :user }
 
   describe 'GET #new' do
     before do
@@ -31,7 +31,6 @@ RSpec.describe SessionsController, type: :controller do
 
   describe 'GET #create' do
     before do
-      FactoryGirl.create :user
       VCR.use_cassette(cassette_name) do
         get :create, params
       end
