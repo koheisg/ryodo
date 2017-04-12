@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe User do
   let(:user) { FactoryGirl.create :user }
+  let(:user_with_params) { User.new(params) }
 
   describe '#validate' do
-    let(:user_with_params) { User.new(params) }
 
     context 'when given the correct params' do
       it 'is valid' do
@@ -20,14 +20,14 @@ describe User do
     end
 
     context 'when given no username' do
-      let(:params) { {email: 'user001@example.com' } }
+      let(:params) { {email: 'user001@example.com'} }
       it 'is invalid' do
         expect(user_with_params).to be_invalid
       end
     end
 
     context 'when given no email' do
-      let(:params) { {username: 'user001' } }
+      let(:params) { {username: 'user001'} }
       it 'is invalid' do
         expect(user_with_params).to be_invalid
       end

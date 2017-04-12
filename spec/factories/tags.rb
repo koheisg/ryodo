@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :tag do
     user
-    name "tag1"
+    name "tag001"
   end
 end

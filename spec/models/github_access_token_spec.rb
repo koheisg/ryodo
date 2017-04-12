@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 describe GithubAccessToken do
-  let(:token) { FactoryGirl.build :github_access_token }
+  let(:user) { FactoryGirl.create :user }
 
   describe '#validation' do
     let(:token_with_params) { GithubAccessToken.new(params) }
 
     context 'when given the correct params' do
+      let(:params) { {user: user, access_token: "token"} }
       it 'is valid' do
-        expect(token).to be_valid
+        expect(token_with_params).to be_valid
       end
     end
 
