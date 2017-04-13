@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :article_tag do
-    article_id 1
+    article
     tag
   end
 end
