@@ -1,5 +1,6 @@
 FactoryGirl.define do
-  factory :github_access_token do
+  factory :tag do
     user
+    name "tag001"
   end
 end
